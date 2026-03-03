@@ -1,3 +1,6 @@
+volumes:
+  db-data:
+
 services:
   db:
     image: postgres:15
@@ -9,12 +12,31 @@ services:
     # Data inside the container is lost on restart unless you persist it with a volume.
     ports:
       - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  
+      - db-data:/var/lib/postgresql/data 
 
   backend:
-    # TODO: you will need to add to this
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: marksuser
+      DB_PASSWORD: markspass
+      DB_NAME: marksdb
+    ports:
+      - "5000:5000"
 
   frontend:
-    # TODO: you will need to add to this
+    build: ./frontend
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:5000 
+    ports:
+      - "3000:80"
 
   automark:
     build: ./automark
