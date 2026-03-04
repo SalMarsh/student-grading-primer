@@ -21,13 +21,17 @@ def get_students():
 def create_student():
     data = request.get_json(force=True)
 
+    mark = data.get("mark", 0)
+
     try:
         student = db.insert_student(
             data["name"],
             data["course"],
-            data["mark"],
+            mark,
         )
-        return jsonify(student), 201
+
+        return jsonify(student), 200
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -63,16 +67,24 @@ def delete_student(student_id):
 @app.route("/stats")
 def get_stats():
     students = db.get_all_students()
-    if not students:
-        return jsonify({"count": 0, "average": None, "min": None, "max": None}), 200
 
-    marks = [s["mark"] for s in students]
+    marks = [s["mark"] for s in students if s["mark"] is not None]
+
+    if not marks:
+        return jsonify({
+            "count": len(students),
+            "average": None,
+            "min": None,
+            "max": None,
+        }), 200
+
     stats = {
         "count": len(students),
         "average": sum(marks) / len(marks),
         "min": min(marks),
         "max": max(marks),
     }
+
     return jsonify(stats), 200
 
 
