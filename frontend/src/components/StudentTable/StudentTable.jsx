@@ -13,6 +13,7 @@ export default function StudentTable({ students, onEdit, onDelete }) {
             <th>Name</th>
             <th>Course</th>
             <th>Mark</th>
+            <th>ID</th>
             <th aria-label="Actions" />
           </tr>
         </thead>
@@ -26,6 +27,7 @@ export default function StudentTable({ students, onEdit, onDelete }) {
                   {s.mark}
                 </span>
               </td>
+              <td>{s.id}</td>
               <td>
                 <div className={S.rowActions}>
                   <button
