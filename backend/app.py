@@ -22,12 +22,12 @@ def create_student():
     data = request.get_json(force=True)
 
     try:
-        db.insert_student(
+        student = db.insert_student(
             data["name"],
             data["course"],
             data["mark"],
         )
-        return jsonify(student), 200
+        return jsonify(student), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

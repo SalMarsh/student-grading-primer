@@ -7,4 +7,4 @@ Therefore, we can just show it so the user can tell the difference between stude
 
 2) How you have accounted for this in your implementation
 
-On the FE, I have added a spot for the ID to be seen. This could be something like a zID in the future. <td>{s.id}</td>
+On the FE, I have added a spot for the ID to be seen. This could be something like a zID in the future. 
