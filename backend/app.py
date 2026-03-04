@@ -25,9 +25,9 @@ def create_student():
         db.insert_student(
             data["name"],
             data["course"],
-            data["mark"]
+            data["mark"],
         )
-        return jsonify({}), 200
+        return jsonify(student), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -84,3 +84,4 @@ def health():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+

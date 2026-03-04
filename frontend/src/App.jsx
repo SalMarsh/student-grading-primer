@@ -33,6 +33,7 @@ export default function App() {
     setError(null)
     try {
       const created = await createStudent(student)
+      // await load()
       setStudents((prev) => [...prev, created])
     } catch (e) {
       setError(e.message)
@@ -71,7 +72,7 @@ export default function App() {
       <main className="main">
         <Stats />
         <section className="card form-card">
-          <h2>Add a 3900 tutor</h2>
+          <h2>Add a 3900 Student</h2>
           <StudentForm onSubmit={handleCreate} />
         </section>
 
@@ -81,10 +82,10 @@ export default function App() {
           </div>
         )}
         
-        <section className="card form-card">
+        {/* <section className="card form-card">
           <h2>Add tutor</h2>
           <StudentForm onSubmit={handleCreate} />
-        </section>
+        </section> */}
 
         {error && (
           <div className="banner banner-error" role="alert">
@@ -93,7 +94,7 @@ export default function App() {
         )}
 
         <section className="card table-card">
-          <h2>Tutors</h2>
+          <h2>Students</h2>
           {loading ? (
             <p className="loading">Loading…</p>
           ) : (
